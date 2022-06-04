@@ -32,7 +32,7 @@ jobs:
         run: dotnet restore; dotnet publish -r linux-x64 --configuration "Release" --self-contained "true" -o ../application;
 
       - name: Generate deployment package 
-        run: cd application; zip ../application.zip *; cd ..; zip broker.zip application.zip aws-linux-deployment-manifest.json
+        run: cd ../application; zip ../application.zip *; cd ..; zip broker.zip application.zip broker/aws-linux-deployment-manifest.json
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v16
