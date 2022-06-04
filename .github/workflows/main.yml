@@ -29,7 +29,7 @@ jobs:
           dotnet-version: '6.0' # SDK Version to use
 
       - name: Publish prod
-        run: cd broker; dotnet restore; dotnet publish -r linux-x64 --configuration "Release" --self-contained "true" -o ../application;
+        run: dotnet restore; dotnet publish -r linux-x64 --configuration "Release" --self-contained "true" -o ../application;
 
       - name: Generate deployment package 
         run: cd application; zip ../application.zip *; cd ..; zip broker.zip application.zip aws-linux-deployment-manifest.json
