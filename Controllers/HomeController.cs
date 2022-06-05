@@ -1,4 +1,5 @@
-﻿using broker.Models;
+﻿using broker.Helpers;
+using broker.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -16,6 +17,16 @@ namespace broker.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        // POST: Home/SendMail
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendMail(string To, string Message)
+        {
+            MailingHelper.SendMail(To, Message);
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
