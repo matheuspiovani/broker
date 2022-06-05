@@ -1,7 +1,11 @@
+using broker.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var smtpSettings = builder.Configuration.GetSection("SmtpSettings");
+SmtpSettings.Configure(smtpSettings);
 
 var app = builder.Build();
 
