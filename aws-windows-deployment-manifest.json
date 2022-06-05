@@ -5,7 +5,7 @@
       {
         "name": "broker",
         "parameters": {
-          "appBundle": "site.zip",
+          "appBundle": "broker.zip",
           "iisPath": "/",
           "iisWebSite": ""
         }
