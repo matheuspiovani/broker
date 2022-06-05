@@ -32,7 +32,7 @@ jobs:
         run: dotnet restore; dotnet publish -r win10-x64 --configuration "Release" --self-contained "true" -o ../site;
 
       - name: Generate deployment package 
-        run: zip ../site.zip ../site/*; zip ../broker.zip ../site.zip aws-windows-deployment-manifest.json
+        run: zip ../site.zip ../site/*; zip site.zip ../site.zip aws-windows-deployment-manifest.json
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v16
@@ -43,4 +43,4 @@ jobs:
           environment_name: Broker-dev
           version_label: ${{ github.run_id }}
           region: us-west-2
-          deployment_package: ../broker.zip
+          deployment_package: site.zip
