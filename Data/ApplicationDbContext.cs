@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using broker.Models;
 
 namespace broker.Data
 {
@@ -9,5 +10,7 @@ namespace broker.Data
             : base(options)
         {
         }
+        public DbSet<broker.Models.Stock>? Stock { get; set; }
+        public DbSet<broker.Models.Alert>? Alert { get; set; }
     }
 }
