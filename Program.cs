@@ -17,6 +17,8 @@ builder.Services.AddControllersWithViews();
 
 var smtpSettings = builder.Configuration.GetSection("SmtpSettings");
 SmtpSettings.Configure(smtpSettings);
+var yahooFinanceSettings = builder.Configuration.GetSection("YahooFinanceSettings");
+YahooFinanceSettings.Configure(yahooFinanceSettings);
 
 var app = builder.Build();
 
