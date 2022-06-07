@@ -24,7 +24,7 @@ namespace broker.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Stock != null ? 
-                          View(await _context.Stock.ToListAsync()) :
+                          View(await _context.Stock.OrderBy(s => s.Ticker).ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Stock'  is null.");
         }
 
