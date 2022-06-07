@@ -1,4 +1,5 @@
 using broker.Data;
+using broker.Filters;
 using broker.Jobs;
 using broker.Models;
 using Hangfire;
@@ -62,7 +63,13 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 //Set Job
-app.UseHangfireDashboard();
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization = new[]
+    {
+        new HangfireAuthorizationFilter()
+    }
+});
 
 //var a = new AlertJob();
 RecurringJob.AddOrUpdate<AlertJob>(
