@@ -1,6 +1,10 @@
 using broker.Data;
+using broker.Jobs;
 using broker.Models;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +14,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddHangfire(config =>
+    config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseDefaultTypeSerializer()
+    .UseMemoryStorage()
+);
+builder.Services.AddHangfireServer();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -46,6 +58,15 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+//Set Job
+app.UseHangfireDashboard();
+
+//var a = new AlertJob();
+RecurringJob.AddOrUpdate<AlertJob>(
+    "AlertJob",
+    alertJob =>  alertJob.UpdatePricesAndSendMail(),
+    "0,30 10-17 * * 1-5");
 
 //Seed DB
 AppDbInitializer.Seed(app);
