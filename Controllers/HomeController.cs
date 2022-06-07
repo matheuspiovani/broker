@@ -16,15 +16,5 @@ namespace broker.Controllers
         {
             return View();
         }
-
-        // POST: Home/SendMail
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendMail(string To, string Message)
-        {
-            MailingHelper.SendMail(To, Message);
-
-            return RedirectToAction(nameof(Index));
-        }
     }
 }
