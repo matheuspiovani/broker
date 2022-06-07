@@ -4,9 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Criar</h1>
 
-<h4>Stock</h4>
+<h4>Ação</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,25 +17,29 @@
                 <input asp-for="Ticker" class="form-control" />
                 <span asp-validation-for="Ticker" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="LastPrice" class="control-label"></label>
                 <input asp-for="LastPrice" class="form-control" />
                 <span asp-validation-for="LastPrice" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="Currency" class="control-label"></label>
                 <input asp-for="Currency" class="form-control" />
                 <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
+            <br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {
