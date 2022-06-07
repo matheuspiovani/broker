@@ -2,8 +2,15 @@
 
 namespace broker.Models
 {
+    public enum Order
+    {
+        BUY,
+        SELL
+    }
+
     public class Alert
     {
+        
         public int Id { get; set; }
 
         [Required]
@@ -14,6 +21,9 @@ namespace broker.Models
         public decimal Price { get; set; }
 
         public bool WasSent { get; set; } = false;
+
+        [Required]
+        public Order Order { get; set; } = Order.SELL;
 
         [EmailAddress]
         public string Email { get; set; } = null!;
