@@ -6,13 +6,15 @@ using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseMySql(connectionString, serverVersion));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddHangfire(config =>
