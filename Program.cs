@@ -36,6 +36,7 @@ var yahooFinanceSettings = builder.Configuration.GetSection("YahooFinanceSetting
 YahooFinanceSettings.Configure(yahooFinanceSettings);
 
 var app = builder.Build();
+app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
