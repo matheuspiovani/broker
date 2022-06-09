@@ -18,9 +18,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.LastPrice)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,9 +29,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
