@@ -57,7 +57,7 @@ namespace broker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Ticker,LastPrice,Currency")] Stock stock)
+        public async Task<IActionResult> Create([Bind("Id,Ticker")] Stock stock)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace broker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Ticker,LastPrice,Currency")] Stock stock)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Ticker")] Stock stock)
         {
             if (id != stock.Id)
             {

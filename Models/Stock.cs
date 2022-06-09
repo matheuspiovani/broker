@@ -14,9 +14,8 @@ namespace broker.Models
         [DisplayName("Último Preço")]
         public decimal LastPrice { get; set; }
 
-        [Required]
         [DisplayName("Moeda")]
-        public string Currency { get; set; } = null!;
+        public string Currency { get; set; } = "BRL";
 
         [DisplayName("Alertas")]
         public List<Alert>? Alerts { get; set; }
