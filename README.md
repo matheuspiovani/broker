@@ -26,3 +26,4 @@
 3. Inicie a aplicação com
 	- dotnet restore
 	- dotnet run
+
