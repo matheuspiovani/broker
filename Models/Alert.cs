@@ -12,8 +12,13 @@ namespace broker.Models
     [DisplayName("Alerta")]
     public class Alert
     {
-        
+        [Key]
         public int Id { get; set; }
+        
+        [Required]
+        [DisplayName("Usuário")]
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser? ApplicationUser{ get; set; }
 
         [Required]
         [DisplayName("Ação")]
@@ -30,10 +35,6 @@ namespace broker.Models
         [Required]
         [DisplayName("Ordem")]
         public Order Order { get; set; } = Order.SELL;
-
-        [EmailAddress]
-        [DisplayName("Email")]
-        public string Email { get; set; } = null!;
         public Alert()
         {
 

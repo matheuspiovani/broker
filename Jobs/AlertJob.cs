@@ -63,7 +63,8 @@ namespace broker.Jobs
                 Console.WriteLine("Alerta " + alert.Id + " enviado.");
                 alert.WasSent = true;
                 _context.Update(alert);
-                MailingHelper.SendMail(alert.Email, "Alerta de Venda para " + alert.Stock.Ticker + "! Preço atingiu " + newPrice);
+                ApplicationUser user = _context.ApplicationUser.Find(alert.ApplicationUserId);
+                MailingHelper.SendMail(user.UserName, "Alerta de Venda para " + alert.Stock.Ticker + "! Preço atingiu " + newPrice);
             }
 
             var buyAlerts = _context.Alert.Where(a =>
@@ -73,7 +74,8 @@ namespace broker.Jobs
             foreach (Alert alert in buyAlerts.Result)
             {
                 Console.WriteLine("Alerta " + alert.Id + " enviado.");
-                MailingHelper.SendMail(alert.Email, "Alerta de Compra para " + alert.Stock.Ticker + "! Preço atingiu " + newPrice);
+                ApplicationUser user = _context.ApplicationUser.Find(alert.ApplicationUserId);
+                MailingHelper.SendMail(user.UserName, "Alerta de Compra para " + alert.Stock.Ticker + "! Preço atingiu " + newPrice);
                 alert.WasSent = true;
                 _context.Update(alert);
             }

@@ -6,6 +6,7 @@ namespace broker.Models
     [DisplayName("Ação")]
     public class Stock
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]

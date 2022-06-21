@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using broker.Data;
 using broker.Models;
 using broker.Jobs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace broker.Controllers
 {
+    [Authorize]
     public class StocksController : Controller
     {
         private readonly ApplicationDbContext _context;

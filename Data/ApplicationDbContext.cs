@@ -4,7 +4,7 @@ using broker.Models;
 
 namespace broker.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -12,5 +12,6 @@ namespace broker.Data
         }
         public DbSet<broker.Models.Stock>? Stock { get; set; }
         public DbSet<broker.Models.Alert>? Alert { get; set; }
+        public DbSet<broker.Models.ApplicationUser>? ApplicationUser { get; set; }
     }
 }

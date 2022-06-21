@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using broker.Data;
 using broker.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace broker.Controllers
 {
+    [Authorize]
     public class AlertsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,7 +24,8 @@ namespace broker.Controllers
         // GET: Alerts
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Alert.OrderByDescending(a => a.Id).Include(a => a.Stock);
+            ApplicationUser user = _context.ApplicationUser.Where(u => u.UserName.Equals(User.Identity.Name)).First();
+            var applicationDbContext = _context.Alert.Where(a => a.ApplicationUserId == user.Id).OrderByDescending(a => a.Id).Include(a => a.Stock);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,6 +52,9 @@ namespace broker.Controllers
         public IActionResult Create()
         {
             ViewData["StockId"] = new SelectList(_context.Stock.OrderBy(s => s.Ticker), "Id", "Ticker");
+            ApplicationUser user = _context.ApplicationUser.Where(u => u.UserName.Equals(User.Identity.Name)).First();
+            ViewBag.ApplicationUserId = user.Id;
+
             return View();
         }
 
@@ -57,7 +63,7 @@ namespace broker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StockId,Price,Order,Email")] Alert alert)
+        public async Task<IActionResult> Create([Bind("Id,StockId,ApplicationUserId,Price,Order")] Alert alert)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +71,11 @@ namespace broker.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["StockId"] = new SelectList(_context.Stock, "Id", "Currency", alert.StockId);
+            ApplicationUser user = _context.ApplicationUser.Where(u => u.UserName.Equals(User.Identity.Name)).First();
+            ViewBag.ApplicationUserId = user.Id;
+
             return View(alert);
         }
 
@@ -91,7 +101,7 @@ namespace broker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StockId,Price,Order,Email")] Alert alert)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,StockId,ApplicationUserId,Price,Order,Email")] Alert alert)
         {
             if (id != alert.Id)
             {

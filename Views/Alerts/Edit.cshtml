@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input asp-for="ApplicationUserId" type="hidden" />
             <div class="form-group">
                 <label asp-for="StockId" class="control-label"></label>
                 <select asp-for="StockId" class="form-control" asp-items="ViewBag.StockId"></select>
@@ -28,12 +29,6 @@
             <div class="form-group">
                 <label asp-for="Order" class="control-label"></label>
                 <select asp-for="Order" class ="form-control" asp-items="Html.GetEnumSelectList<Order>()"></select>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">
